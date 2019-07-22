@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <!-- Тег meta для указания кодировки -->
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <p>Начало документа...</p>
+  <script>
+    function formatDate(date) {
+      if(typeof(date) === "number") {
+        var formatedDate = new Date(date * 1000);
+        var year = ('' + formatedDate.getFullYear()).substring(2);
+        var month = formatedDate.getMonth() < 9 ? "0" + (formatedDate.getMonth() + 1) :
+                                                      formatedDate.getMonth() + 1;
+        var day = formatedDate.getDate() < 10 ? "0" + formatedDate.getDate() : 
+                                                formatedDate.getDate();
+
+        return day + "." + month + "." + year;
+      } else if(typeof(date) === "string") {
+        var arrDate = date.split('-');
+        return arrDate[2] + '.' + arrDate[1] + '.' + arrDate[0].substring(2); 
+      } else if(Array.isArray(date)) {
+        var day = date[2] < 10 ? "0" + date[2] : "" + date[2];
+        var month = date[1] < 9 ? "0" + (date[1] + 1) : "" + (date[1] + 1);
+
+        return day + "." + month + "." + (date[0] % 100);
+      } else if(date.getTime) {
+        var year = date.getFullYear() % 100;
+        var month = date.getMonth() < 9 ? "0" + (date.getMonth() + 1) : "" + date.getMonth() + 1;
+        var day = date.getDate() < 10 ? "0" + date.getDate() : "" + date.getDate();
+
+        return day + "." + month + "." + year;
+      }
+    }
+
+    console.log( formatDate(1234567890) );
+    console.log( formatDate('2011-10-02') );
+    console.log( formatDate([2014, 0, 1]) );
+    console.log( formatDate(new Date(2014, 0, 1)) );
+  </script>
+
+  <p>...Конец документа</p>
+
+</body>
+
+</html>
